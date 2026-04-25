@@ -1,0 +1,40 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { CONSULTATION_CTA_TEXT } from "../constants/cta";
+---
+
+<BaseLayout title="Contact | LubLabs" description="Talk with LubLabs about your product or software project.">
+  <section class="hero">
+    <p class="eyebrow">Contact</p>
+    <h1>Tell us about your project.</h1>
+    <p class="lede">Expected response within 24 hours.</p>
+  </section>
+
+  <section class="section card">
+    <form class="form-grid" method="post" action="#">
+      <label>
+        Name
+        <input type="text" name="name" required />
+      </label>
+      <label>
+        Email
+        <input type="email" name="email" required />
+      </label>
+      <label>
+        Company (optional)
+        <input type="text" name="company" />
+      </label>
+      <label>
+        Project summary
+        <textarea name="summary" rows="5" required></textarea>
+      </label>
+      <label>
+        How did you hear about us? (optional)
+        <input type="text" name="referral" />
+      </label>
+      <button class="cta-primary inline-flex w-fit items-center justify-center border-0" type="submit">
+        {CONSULTATION_CTA_TEXT}
+      </button>
+    </form>
+  </section>
+</BaseLayout>

@@ -1,0 +1,45 @@
+---
+import SiteFooter from "../components/SiteFooter";
+import SiteNav from "../components/SiteNav";
+import "../styles/global.css";
+import "../styles/tailwind.css";
+
+interface Props {
+  title?: string;
+  description?: string;
+}
+
+const {
+  title = "LubLabs",
+  description = "LubLabs builds high-quality software for startups and SMBs.",
+} = Astro.props;
+
+const currentPath = Astro.url.pathname;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{title}</title>
+    <meta name="description" content={description} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-body bg-[#070C16] text-[#EEE9E0]">
+    <SiteNav currentPath={currentPath} />
+
+    <main class="site-main">
+      <div class="container">
+        <slot />
+      </div>
+    </main>
+
+    <SiteFooter />
+  </body>
+</html>

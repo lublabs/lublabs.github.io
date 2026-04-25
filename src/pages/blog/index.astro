@@ -1,0 +1,33 @@
+---
+import { getCollection } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+const posts = (await getCollection("blog"))
+  .filter((entry) => !entry.data.draft)
+  .sort((a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf());
+---
+
+<BaseLayout title="Blog | LubLabs" description="Insights, build stories, and product notes from LubLabs.">
+  <section class="hero">
+    <p class="eyebrow">Blog</p>
+    <h1>Insights for founders building software products.</h1>
+    <p class="lede">
+      Publish long-form expertise in markdown while keeping design and routing consistent with the rest of the site.
+    </p>
+  </section>
+
+  <section class="section card-grid">
+    {posts.map((post) => (
+      <article class="card">
+        <h2>
+          <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
+        </h2>
+        <p>{post.data.description}</p>
+        <div class="meta">
+          <span>{post.data.pubDate.toLocaleDateString()}</span>
+          {post.data.tags.length > 0 && <span>{post.data.tags.join(" | ")}</span>}
+        </div>
+      </article>
+    ))}
+  </section>
+</BaseLayout>

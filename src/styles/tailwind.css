@@ -1,0 +1,149 @@
+@import "./theme.css";
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    scroll-behavior: smooth;
+  }
+
+  body {
+    margin: 0;
+    font-family: var(--font-body);
+    background: var(--bg);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+}
+
+@layer components {
+  .cta-primary {
+    @apply rounded-md bg-[#3EFFC8] px-8 py-4 font-display text-[1.02rem] font-black uppercase tracking-[0.035em] text-[#050A12] transition duration-200 hover:-translate-y-0.5 hover:opacity-90;
+  }
+
+  .hero-3d-stage {
+    perspective: 1200px;
+    transform-style: preserve-3d;
+  }
+
+  .hero-shape {
+    pointer-events: none;
+    position: absolute;
+    transform-style: preserve-3d;
+    will-change: transform;
+    transition: transform 140ms ease-out;
+    backface-visibility: hidden;
+  }
+
+  .hero-shape-a {
+    animation:
+      heroFloatA 11s ease-in-out infinite alternate,
+      heroSpin 30s linear infinite;
+  }
+
+  .hero-shape-b {
+    animation:
+      heroFloatB 13s ease-in-out infinite alternate,
+      heroSpinReverse 24s linear infinite;
+  }
+
+  .hero-shape-c {
+    animation:
+      heroFloatC 10s ease-in-out infinite alternate,
+      heroSpin 22s linear infinite;
+  }
+}
+
+@layer utilities {
+  .hero-grid-mask {
+    mask-image: radial-gradient(
+      ellipse 80% 70% at 50% 0%,
+      black 40%,
+      transparent 100%
+    );
+  }
+
+  .fade-up {
+    animation: fadeUp 0.6s ease both;
+  }
+}
+
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes heroFloatA {
+  from {
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+
+  to {
+    transform: translate3d(16px, -14px, 30px) rotateX(8deg) rotateY(-6deg)
+      rotateZ(5deg);
+  }
+}
+
+@keyframes heroFloatB {
+  from {
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+
+  to {
+    transform: translate3d(-18px, 14px, 28px) rotateX(-7deg) rotateY(7deg)
+      rotateZ(-8deg);
+  }
+}
+
+@keyframes heroFloatC {
+  from {
+    transform: translate3d(0, 0, 0) rotateX(0deg) rotateY(0deg) rotateZ(0deg);
+  }
+
+  to {
+    transform: translate3d(12px, 10px, 24px) rotateX(6deg) rotateY(8deg)
+      rotateZ(10deg);
+  }
+}
+
+@keyframes heroSpin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes heroSpinReverse {
+  from {
+    transform: rotate(360deg);
+  }
+
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-shape-a,
+  .hero-shape-b,
+  .hero-shape-c,
+  .fade-up {
+    animation: none;
+  }
+}

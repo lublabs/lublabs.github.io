@@ -1,0 +1,15 @@
+:root {
+  --bg: #070c16;
+  --bg2: #0c1220;
+  --bg3: #111a2e;
+  --accent: #3effc8;
+  --accent-dim: rgba(62, 255, 200, 0.12);
+  --text: #eee9e0;
+  --muted: #7a8499;
+  --border: rgba(255, 255, 255, 0.1);
+  --shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  --max-width: 1400px;
+  --radius: 14px;
+  --font-display: "Big Shoulders Display", sans-serif;
+  --font-body: "DM Sans", sans-serif;
+}

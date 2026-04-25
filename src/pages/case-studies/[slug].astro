@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../../layouts/BaseLayout.astro";
+
+interface Props {
+  caseStudy: CollectionEntry<"case-studies">;
+}
+
+export async function getStaticPaths() {
+  const caseStudies = await getCollection("case-studies");
+
+  return caseStudies.map((caseStudy) => ({
+    params: { slug: caseStudy.slug },
+    props: { caseStudy },
+  }));
+}
+
+const { caseStudy } = Astro.props as Props;
+const { Content } = await caseStudy.render();
+---
+
+<BaseLayout title={`${caseStudy.data.title} | LubLabs`} description={caseStudy.data.summary}>
+  <article class="prose">
+    <p class="eyebrow">Case study</p>
+    <h1>{caseStudy.data.title}</h1>
+    <p class="lede">{caseStudy.data.summary}</p>
+    <div class="meta">
+      <span>Client: {caseStudy.data.client}</span>
+      <span>Industry: {caseStudy.data.industry}</span>
+      <span>Status: {caseStudy.data.status}</span>
+    </div>
+    <img
+      src={caseStudy.data.image}
+      alt={`${caseStudy.data.title} cover image`}
+      class="mt-6 w-full rounded-xl border border-white/10 object-cover shadow-[0_18px_42px_rgba(0,0,0,0.34)]"
+      loading="lazy"
+    />
+    <Content />
+  </article>
+</BaseLayout>

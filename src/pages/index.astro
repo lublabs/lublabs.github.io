@@ -1,0 +1,48 @@
+---
+import { getCollection } from "astro:content";
+import HomePage from "../components/HomePage";
+import "../styles/tailwind.css";
+
+const currentPath = Astro.url.pathname;
+
+const caseStudies = (await getCollection("case-studies")).sort(
+  (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
+);
+
+const selectedCaseStudy = caseStudies.find((study) => study.data.featured) ?? caseStudies[0];
+
+const featuredCaseStudy = selectedCaseStudy
+  ? {
+      title: selectedCaseStudy.data.title,
+      summary: selectedCaseStudy.data.summary,
+      client: selectedCaseStudy.data.client,
+      industry: selectedCaseStudy.data.industry,
+      status: selectedCaseStudy.data.status,
+      services: selectedCaseStudy.data.services,
+      href: `/case-studies/${selectedCaseStudy.slug}/`,
+      image: selectedCaseStudy.data.image,
+    }
+  : undefined;
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LubLabs - Software for Founders</title>
+    <meta
+      name="description"
+      content="LubLabs builds SaaS platforms, mobile apps, and AI-powered software for founders and service businesses."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body class="font-body bg-[#070C16] text-[#EEE9E0]">
+    <HomePage currentPath={currentPath} featuredCaseStudy={featuredCaseStudy} client:load />
+  </body>
+</html>

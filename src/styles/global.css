@@ -1,0 +1,222 @@
+@import "./theme.css";
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  font-family: var(--font-body);
+  background: radial-gradient(
+    circle at 20% 0%,
+    #0f1830 0%,
+    var(--bg) 40%,
+    #070c16 100%
+  );
+  color: var(--text);
+}
+
+a {
+  color: inherit;
+}
+
+.container {
+  width: min(var(--max-width), 90vw);
+  margin: 0 auto;
+}
+
+.site-main {
+  padding: 7.25rem 0 72px;
+}
+
+@media (max-width: 900px) {
+  .site-main {
+    padding-top: 6.75rem;
+  }
+}
+
+.hero {
+  display: grid;
+  gap: 16px;
+  padding: 34px;
+  background: linear-gradient(145deg, var(--bg2), #0e1628);
+  border: 1px solid var(--border);
+  border-radius: 22px;
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  margin: 0;
+  font-size: 0.74rem;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--accent);
+  font-weight: 700;
+}
+
+h1,
+h2,
+h3 {
+  margin: 0;
+  font-family: var(--font-display);
+  letter-spacing: -0.025em;
+}
+
+h1 {
+  font-size: clamp(2.4rem, 4.6vw, 3.8rem);
+  line-height: 1.08;
+}
+
+h2 {
+  font-size: clamp(2rem, 3.4vw, 2.85rem);
+  line-height: 1.1;
+}
+
+h3 {
+  font-size: clamp(1.3rem, 2vw, 1.55rem);
+  line-height: 1.15;
+}
+
+.lede {
+  margin: 0;
+  max-width: 64ch;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.section {
+  margin-top: 42px;
+}
+
+.section-head {
+  margin-bottom: 16px;
+}
+
+.card-grid {
+  display: grid;
+  gap: 14px;
+}
+
+.card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 22px;
+}
+
+.card h2 a,
+.card h3 a {
+  text-decoration: none;
+  transition: color 0.2s;
+}
+
+.card h2 {
+  font-size: clamp(1.45rem, 2.4vw, 1.95rem);
+  line-height: 1.15;
+}
+
+.card h2 a:hover,
+.card h3 a:hover {
+  color: var(--accent);
+}
+
+.card p {
+  margin-top: 10px;
+  margin-bottom: 0;
+  color: var(--muted);
+  line-height: 1.65;
+}
+
+.meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 12px;
+  color: var(--muted);
+  font-size: 0.87rem;
+}
+
+.prose {
+  background: linear-gradient(145deg, var(--bg2), #0f182c);
+  border: 1px solid var(--border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  padding: 30px;
+  line-height: 1.78;
+}
+
+.prose h1,
+.prose h2,
+.prose h3 {
+  margin-top: 28px;
+  margin-bottom: 12px;
+}
+
+.prose h1 {
+  font-size: clamp(2.5rem, 5vw, 4.1rem);
+  line-height: 1.04;
+}
+
+.prose h2 {
+  font-size: clamp(1.85rem, 3.2vw, 2.7rem);
+  line-height: 1.08;
+}
+
+.prose h3 {
+  font-size: clamp(1.35rem, 2.2vw, 1.8rem);
+  line-height: 1.14;
+}
+
+.prose p,
+.prose li {
+  color: var(--text);
+}
+
+.prose a {
+  color: var(--accent);
+  text-decoration: none;
+}
+
+.form-grid {
+  display: grid;
+  gap: 12px;
+}
+
+label {
+  display: grid;
+  gap: 6px;
+  font-weight: 600;
+  color: var(--text);
+}
+
+input,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 10px 12px;
+  font: inherit;
+  color: var(--text);
+  background: #0f1a2e;
+}
+
+input:focus,
+textarea:focus {
+  outline: 1px solid var(--accent);
+  border-color: var(--accent);
+}
+
+@media (min-width: 780px) {
+  .card-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid.three {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+}
