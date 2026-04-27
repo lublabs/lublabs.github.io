@@ -28,10 +28,10 @@ type Step = {
 };
 
 type Testimonial = {
-  initials: string;
   author: string;
   role: string;
   quote: string;
+  image: string;
 };
 
 type FeaturedCaseStudy = {
@@ -236,18 +236,18 @@ const steps: Step[] = [
 
 const testimonials: Testimonial[] = [
   {
-    initials: "DK",
     author: "Danny Kawok",
     role: "Founder",
     quote:
       "LubLabs has been highly professional, responsive, and detail-oriented. They quickly resolved a critical integration issue with an innovative solution and consistently turn our vision into a functional product.",
+    image: "/assets/clients/Danny%20Kawok.png",
   },
   {
-    initials: "JH",
     author: "Janette Habashi, PhD",
     role: "Founder",
     quote:
       "LubLabs exceeded my expectations. From thorough exploration and thoughtful design to seamless implementation, their team was attentive, professional, and highly skilled. Their expertise made the entire process smooth and effective.",
+    image: "/assets/clients/Janette%20Habashi.png",
   },
 ];
 
@@ -286,9 +286,7 @@ export default function HomePage({ currentPath = "/", featuredCaseStudy, caseStu
 
         <div className="relative z-10 mx-auto w-full max-w-[1400px]">
           <h1 className="fade-up max-w-[860px] font-display text-[clamp(2.35rem,9.2vw,5.5rem)] font-extrabold leading-[1.04] tracking-[-0.03em] [animation-delay:0.2s]">
-            We build software for founders
-            <br className="hidden sm:block" />
-            with <span className="text-[#0F766E]">something to prove.</span>
+            We build software for <span className="text-[#0F766E]">service businesses</span> who have something to prove.
           </h1>
 
           <p className="fade-up mt-6 max-w-[540px] text-base leading-relaxed text-[#6F6557] md:text-lg [animation-delay:0.3s]">
@@ -531,8 +529,13 @@ export default function HomePage({ currentPath = "/", featuredCaseStudy, caseStu
               <div className="mb-3 font-serif text-5xl leading-[0.7] text-[#0F766E4D] sm:text-6xl">"</div>
               <p className="mb-6 text-[0.95rem] italic leading-relaxed text-[#1F1A14]">{testimonial.quote}</p>
               <div className="flex items-center gap-3">
-                <div className="flex h-10 w-10 items-center justify-center rounded-full border border-black/10 bg-[#F2E7D6] font-display text-xs font-bold text-[#0F766E]">
-                  {testimonial.initials}
+                <div className="h-10 w-10 overflow-hidden rounded-full border border-black/10 bg-[#F2E7D6]">
+                  <img
+                    src={testimonial.image}
+                    alt={`${testimonial.author} portrait`}
+                    className="h-full w-full object-cover"
+                    loading="lazy"
+                  />
                 </div>
                 <div>
                   <div className="text-sm font-medium">{testimonial.author}</div>
