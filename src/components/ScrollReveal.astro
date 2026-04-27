@@ -1,0 +1,116 @@
+<script is:inline>
+  (() => {
+    if (typeof window === "undefined") {
+      return;
+    }
+
+    const REVEAL_SELECTOR = [
+      "section",
+      "section > *",
+      "article",
+      "article > *",
+      ".card",
+      ".card > *",
+      ".hero > *",
+      ".prose > h2",
+      ".prose > h3",
+      ".prose > p",
+      ".prose > ul",
+      ".prose > ol",
+      ".prose > img",
+      ".meta > *",
+      ".form-grid > *",
+      ".case-study-image",
+    ].join(", ");
+
+    const initializeReveal = () => {
+      if ((window).__lublabsRevealInitialized) {
+        return;
+      }
+      (window).__lublabsRevealInitialized = true;
+
+      if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        return;
+      }
+
+      const elements = Array.from(
+        new Set(document.querySelectorAll(REVEAL_SELECTOR)),
+      ).filter(
+        (element) =>
+          !element.closest("nav") &&
+          !element.closest("footer") &&
+          !element.classList.contains("fade-up") &&
+          !element.classList.contains("reveal-on-scroll"),
+      );
+
+      if (!elements.length) {
+        return;
+      }
+
+      // Avoid nested reveal effects (for example grid wrappers plus cards),
+      // which can cause temporary color flashing while children fade in.
+      const elementSet = new Set(elements);
+      const revealTargets = elements.filter((element) => {
+        let parent = element.parentElement;
+
+        while (parent) {
+          if (elementSet.has(parent)) {
+            return false;
+          }
+          parent = parent.parentElement;
+        }
+
+        return true;
+      });
+
+      if (!revealTargets.length) {
+        return;
+      }
+
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("is-visible");
+              observer.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          threshold: 0.15,
+          rootMargin: "0px 0px -8% 0px",
+        },
+      );
+
+      const revealBoundary =
+        (window.innerHeight || document.documentElement.clientHeight) * 0.9;
+
+      revealTargets.forEach((element) => {
+        const siblings = element.parentElement
+          ? Array.from(element.parentElement.children)
+          : [];
+        const siblingIndex = Math.max(0, siblings.indexOf(element));
+        const delay = Math.min(siblingIndex * 55, 260);
+
+        element.style.setProperty("--reveal-delay", `${delay}ms`);
+        element.classList.add("reveal-on-scroll");
+
+        if (element.getBoundingClientRect().top <= revealBoundary) {
+          window.requestAnimationFrame(() => {
+            element.classList.add("is-visible");
+          });
+        } else {
+          observer.observe(element);
+        }
+      });
+    };
+
+    if (document.readyState === "loading") {
+      document.addEventListener("DOMContentLoaded", initializeReveal, {
+        once: true,
+      });
+    } else {
+      initializeReveal();
+    }
+  })();
+</script>

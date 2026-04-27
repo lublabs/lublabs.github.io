@@ -4,7 +4,6 @@ summary: How LubLabs built a cross-platform mobile product for a rehab startup f
 client: Confidential startup client
 industry: Digital Health
 pubDate: 2026-04-25
-status: launched
 services:
   - Product strategy
   - UX and interaction design
@@ -12,7 +11,7 @@ services:
   - Backend API integration
   - App release operations
 featured: false
-image: /assets/gametime.png
+image: ../../assets/gametime.png
 ---
 
 ## The client

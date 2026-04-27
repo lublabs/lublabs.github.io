@@ -1,6 +1,7 @@
 ---
 import { getCollection } from "astro:content";
 import HomePage from "../components/HomePage";
+import ScrollReveal from "../components/ScrollReveal.astro";
 import "../styles/tailwind.css";
 
 const currentPath = Astro.url.pathname;
@@ -11,16 +12,20 @@ const caseStudies = (await getCollection("case-studies")).sort(
 
 const selectedCaseStudy = caseStudies.find((study) => study.data.featured) ?? caseStudies[0];
 
+const caseStudyLinks = caseStudies.map((study) => ({
+  title: study.data.title,
+  href: `/case-studies/${study.slug}/`,
+}));
+
 const featuredCaseStudy = selectedCaseStudy
   ? {
       title: selectedCaseStudy.data.title,
       summary: selectedCaseStudy.data.summary,
       client: selectedCaseStudy.data.client,
       industry: selectedCaseStudy.data.industry,
-      status: selectedCaseStudy.data.status,
       services: selectedCaseStudy.data.services,
       href: `/case-studies/${selectedCaseStudy.slug}/`,
-      image: selectedCaseStudy.data.image,
+      image: selectedCaseStudy.data.image.src,
     }
   : undefined;
 ---
@@ -43,6 +48,11 @@ const featuredCaseStudy = selectedCaseStudy
     />
   </head>
   <body class="font-body bg-[#070C16] text-[#EEE9E0]">
-    <HomePage currentPath={currentPath} featuredCaseStudy={featuredCaseStudy} client:load />
+    <ScrollReveal />
+    <HomePage
+      currentPath={currentPath}
+      featuredCaseStudy={featuredCaseStudy}
+      caseStudyLinks={caseStudyLinks}
+    />
   </body>
 </html>

@@ -4,7 +4,6 @@ summary: How LubLabs helped an anonymous travel agency turn manual operations in
 client: Anonymous travel agency
 industry: Travel Technology
 pubDate: 2026-04-24
-status: internal-testing
 services:
   - Product strategy
   - Full-stack development
@@ -12,7 +11,7 @@ services:
   - API integrations
   - Analytics dashboards
 featured: true
-image: /assets/flyx.png
+image: ../../assets/flyx.png
 ---
 
 ## The client

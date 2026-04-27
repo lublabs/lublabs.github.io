@@ -1,6 +1,9 @@
 ---
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { CONSULTATION_CTA_TEXT } from "../constants/cta";
+
+const leadFormEndpoint = import.meta.env.PUBLIC_LEAD_FORM_ENDPOINT ?? "";
+const leadFormReady = leadFormEndpoint.length > 0;
 ---
 
 <BaseLayout title="Contact | LubLabs" description="Talk with LubLabs about your product or software project.">
@@ -11,18 +14,27 @@ import { CONSULTATION_CTA_TEXT } from "../constants/cta";
   </section>
 
   <section class="section card">
-    <form class="form-grid" method="post" action="#">
+    {
+      !leadFormReady && (
+        <p class="form-notice" role="status">
+          Lead capture is not configured yet. Set PUBLIC_LEAD_FORM_ENDPOINT in your environment or email us at
+          <a href="mailto:info@lublabs.com">info@lublabs.com</a>.
+        </p>
+      )
+    }
+
+    <form class="form-grid" method="post" action={leadFormEndpoint || "#"} data-lead-form>
       <label>
         Name
-        <input type="text" name="name" required />
+        <input type="text" name="name" autocomplete="name" required />
       </label>
       <label>
         Email
-        <input type="email" name="email" required />
+        <input type="email" name="email" autocomplete="email" required />
       </label>
       <label>
         Company (optional)
-        <input type="text" name="company" />
+        <input type="text" name="company" autocomplete="organization" />
       </label>
       <label>
         Project summary
@@ -32,9 +44,85 @@ import { CONSULTATION_CTA_TEXT } from "../constants/cta";
         How did you hear about us? (optional)
         <input type="text" name="referral" />
       </label>
-      <button class="cta-primary inline-flex w-fit items-center justify-center border-0" type="submit">
+      <label class="sr-only" for="company_website">
+        Company website
+      </label>
+      <input
+        id="company_website"
+        name="company_website"
+        type="text"
+        autocomplete="off"
+        tabindex="-1"
+        class="sr-only"
+        aria-hidden="true"
+      />
+      <input type="hidden" name="source" value="lublabs-contact-page" />
+      <button class="cta-primary inline-flex w-fit items-center justify-center border-0" type="submit" data-lead-submit>
         {CONSULTATION_CTA_TEXT}
       </button>
+      <p class="form-feedback" data-form-feedback role="status" aria-live="polite"></p>
     </form>
   </section>
+
+  <script is:inline>
+    const form = document.querySelector("[data-lead-form]");
+    const feedback = form?.querySelector("[data-form-feedback]");
+    const submitButton = form?.querySelector("[data-lead-submit]");
+
+    if (form && feedback && submitButton) {
+      form.addEventListener("submit", async (event) => {
+        event.preventDefault();
+
+        const endpoint = form.getAttribute("action") || "";
+        if (!endpoint || endpoint === "#") {
+          feedback.dataset.state = "error";
+          feedback.textContent = "Lead form is not configured yet. Please email info@lublabs.com.";
+          return;
+        }
+
+        const formData = new FormData(form);
+        const honeyPot = String(formData.get("company_website") || "").trim();
+
+        // Silent success for bots that fill honeypots.
+        if (honeyPot) {
+          form.reset();
+          feedback.dataset.state = "success";
+          feedback.textContent = "Thanks. We will follow up shortly.";
+          return;
+        }
+
+        formData.set("submittedAt", new Date().toISOString());
+        formData.set("pageUrl", window.location.href);
+
+        submitButton.setAttribute("disabled", "true");
+        submitButton.setAttribute("aria-busy", "true");
+        feedback.dataset.state = "pending";
+        feedback.textContent = "Sending your message...";
+
+        try {
+          const response = await fetch(endpoint, {
+            method: "POST",
+            body: formData,
+            headers: {
+              Accept: "application/json",
+            },
+          });
+
+          if (!response.ok) {
+            throw new Error("Lead submission failed");
+          }
+
+          form.reset();
+          feedback.dataset.state = "success";
+          feedback.textContent = "Thanks. We received your message and will reply within 24 hours.";
+        } catch {
+          feedback.dataset.state = "error";
+          feedback.textContent = "Could not send right now. Please try again or email info@lublabs.com.";
+        } finally {
+          submitButton.removeAttribute("disabled");
+          submitButton.removeAttribute("aria-busy");
+        }
+      });
+    }
+  </script>
 </BaseLayout>

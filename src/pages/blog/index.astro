@@ -8,22 +8,22 @@ const posts = (await getCollection("blog"))
 ---
 
 <BaseLayout title="Blog | LubLabs" description="Insights, build stories, and product notes from LubLabs.">
-  <section class="hero">
+  <section class="hero content-shell">
     <p class="eyebrow">Blog</p>
-    <h1>Insights for founders building software products.</h1>
-    <p class="lede">
+    <h1 class="page-title">Insights for founders building software that scales.</h1>
+    <p class="lede page-lede">
       Publish long-form expertise in markdown while keeping design and routing consistent with the rest of the site.
     </p>
   </section>
 
-  <section class="section card-grid">
+  <section class="section card-grid content-listing content-shell">
     {posts.map((post) => (
-      <article class="card">
+      <article class="card listing-card">
         <h2>
           <a href={`/blog/${post.slug}/`}>{post.data.title}</a>
         </h2>
         <p>{post.data.description}</p>
-        <div class="meta">
+        <div class="meta listing-meta">
           <span>{post.data.pubDate.toLocaleDateString()}</span>
           {post.data.tags.length > 0 && <span>{post.data.tags.join(" | ")}</span>}
         </div>

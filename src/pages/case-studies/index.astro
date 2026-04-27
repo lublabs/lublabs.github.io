@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
 const caseStudies = (await getCollection("case-studies")).sort(
@@ -8,22 +9,22 @@ const caseStudies = (await getCollection("case-studies")).sort(
 ---
 
 <BaseLayout title="Case Studies | LubLabs" description="Product and software delivery case studies from LubLabs.">
-  <section class="hero">
+  <section class="hero content-shell">
     <p class="eyebrow">Case studies</p>
-    <h1>Real products delivered with clear business outcomes.</h1>
-    <p class="lede">
+    <h1 class="page-title">Real products delivered with clear business outcomes.</h1>
+    <p class="lede page-lede">
       These pages showcase the technical depth, delivery process, and measurable impact LubLabs creates.
     </p>
   </section>
 
-  <section class="section card-grid">
+  <section class="section card-grid content-listing content-shell">
     {caseStudies.map((study) => (
-      <article class="card">
+      <article class="card listing-card">
         <a href={`/case-studies/${study.slug}/`}>
-          <img
+          <Image
             src={study.data.image}
             alt={`${study.data.title} cover image`}
-            class="mb-4 h-48 w-full rounded-xl border border-white/10 object-cover shadow-[0_18px_42px_rgba(0,0,0,0.34)]"
+            class="case-study-image mb-4"
             loading="lazy"
           />
         </a>
@@ -31,10 +32,9 @@ const caseStudies = (await getCollection("case-studies")).sort(
           <a href={`/case-studies/${study.slug}/`}>{study.data.title}</a>
         </h2>
         <p>{study.data.summary}</p>
-        <div class="meta">
+        <div class="meta listing-meta">
           <span>{study.data.client}</span>
           <span>{study.data.industry}</span>
-          <span>{study.data.status}</span>
         </div>
       </article>
     ))}

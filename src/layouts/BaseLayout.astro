@@ -1,6 +1,7 @@
 ---
 import SiteFooter from "../components/SiteFooter";
 import SiteNav from "../components/SiteNav";
+import ScrollReveal from "../components/ScrollReveal.astro";
 import "../styles/global.css";
 import "../styles/tailwind.css";
 
@@ -33,6 +34,7 @@ const currentPath = Astro.url.pathname;
   </head>
   <body class="font-body bg-[#070C16] text-[#EEE9E0]">
     <SiteNav currentPath={currentPath} />
+    <ScrollReveal />
 
     <main class="site-main">
       <div class="container">

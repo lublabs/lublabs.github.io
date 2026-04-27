@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import { Image } from "astro:assets";
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../../layouts/BaseLayout.astro";
 
@@ -21,19 +22,18 @@ const { Content } = await caseStudy.render();
 ---
 
 <BaseLayout title={`${caseStudy.data.title} | LubLabs`} description={caseStudy.data.summary}>
-  <article class="prose">
+  <article class="prose entry-prose content-shell">
     <p class="eyebrow">Case study</p>
-    <h1>{caseStudy.data.title}</h1>
-    <p class="lede">{caseStudy.data.summary}</p>
-    <div class="meta">
+    <h1 class="entry-title">{caseStudy.data.title}</h1>
+    <p class="lede entry-lede">{caseStudy.data.summary}</p>
+    <div class="meta entry-meta">
       <span>Client: {caseStudy.data.client}</span>
       <span>Industry: {caseStudy.data.industry}</span>
-      <span>Status: {caseStudy.data.status}</span>
     </div>
-    <img
+    <Image
       src={caseStudy.data.image}
       alt={`${caseStudy.data.title} cover image`}
-      class="mt-6 w-full rounded-xl border border-white/10 object-cover shadow-[0_18px_42px_rgba(0,0,0,0.34)]"
+      class="case-study-image mt-6"
       loading="lazy"
     />
     <Content />

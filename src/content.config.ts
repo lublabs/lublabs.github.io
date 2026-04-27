@@ -14,17 +14,17 @@ const blog = defineCollection({
 
 const caseStudies = defineCollection({
   type: "content",
-  schema: z.object({
-    title: z.string(),
-    summary: z.string(),
-    client: z.string(),
-    industry: z.string(),
-    pubDate: z.coerce.date(),
-    status: z.enum(["in-progress", "internal-testing", "launched", "scaling"]),
-    services: z.array(z.string()).default([]),
-    featured: z.boolean().default(false),
-    image: z.string(),
-  }),
+  schema: ({ image }) =>
+    z.object({
+      title: z.string(),
+      summary: z.string(),
+      client: z.string(),
+      industry: z.string(),
+      pubDate: z.coerce.date(),
+      services: z.array(z.string()).default([]),
+      featured: z.boolean().default(false),
+      image: image(),
+    }),
 });
 
 export const collections = {
