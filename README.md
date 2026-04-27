@@ -41,6 +41,16 @@ This scaffold outputs static files (`dist/`) and supports:
 - GitHub Pages
 - Kubernetes via any static file server container (for example, Nginx in a Helm chart)
 
+### GitHub Pages (Astro)
+
+This project deploys through GitHub Actions using `.github/workflows/deploy-pages.yml`.
+
+1. In GitHub repository settings, open **Pages**.
+2. Set **Source** to **GitHub Actions**.
+3. Push to `main` to trigger deployment.
+
+If Pages is set to **Deploy from a branch**, GitHub runs Jekyll on source files and Astro frontmatter blocks (`---`) will fail YAML parsing.
+
 ## Lead Capture (Contact Form)
 
 The contact form at `src/pages/contact.astro` submits to a configurable external endpoint so lead collection works in static hosting.

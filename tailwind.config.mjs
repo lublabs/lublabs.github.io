@@ -5,16 +5,17 @@ export default {
     extend: {
       fontFamily: {
         display: ["Big Shoulders Display", "sans-serif"],
+        serif: ["Libre Baskerville", "serif"],
         body: ["DM Sans", "sans-serif"],
       },
       colors: {
         lub: {
-          bg: "#070C16",
-          bg2: "#0C1220",
-          bg3: "#111A2E",
-          accent: "#3EFFC8",
-          text: "#EEE9E0",
-          muted: "#7A8499",
+          bg: "#F6F1E8",
+          bg2: "#FFFCF7",
+          bg3: "#F1E7D8",
+          accent: "#0F766E",
+          text: "#1F1A14",
+          muted: "#6F6557",
         },
       },
     },

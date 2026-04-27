@@ -1,15 +1,16 @@
 :root {
-  --bg: #070c16;
-  --bg2: #0c1220;
-  --bg3: #111a2e;
-  --accent: #3effc8;
-  --accent-dim: rgba(62, 255, 200, 0.12);
-  --text: #eee9e0;
-  --muted: #7a8499;
-  --border: rgba(255, 255, 255, 0.1);
-  --shadow: 0 14px 40px rgba(0, 0, 0, 0.35);
+  --bg: #f6f1e8;
+  --bg2: #fffcf7;
+  --bg3: #f1e7d8;
+  --accent: #0f766e;
+  --accent-dim: rgba(15, 118, 110, 0.12);
+  --text: #1f1a14;
+  --muted: #6f6557;
+  --border: rgba(36, 28, 18, 0.12);
+  --shadow: 0 14px 34px rgba(40, 28, 15, 0.08);
   --max-width: 1400px;
-  --radius: 14px;
+  --radius: 16px;
   --font-display: "Big Shoulders Display", sans-serif;
+  --font-serif: "Libre Baskerville", serif;
   --font-body: "DM Sans", sans-serif;
 }

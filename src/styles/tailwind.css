@@ -24,11 +24,11 @@
 
 @layer components {
   .cta-primary {
-    @apply rounded-md bg-[#3EFFC8] px-6 py-3 font-display text-[0.92rem] font-black uppercase tracking-[0.035em] text-[#050A12] transition duration-200 hover:-translate-y-0.5 hover:opacity-90 md:px-8 md:py-4 md:text-[1.02rem];
+    @apply rounded-xl bg-[#1F1A14] px-6 py-3 font-display text-[0.92rem] font-black uppercase tracking-[0.035em] text-[#F9F4EC] transition duration-200 hover:-translate-y-0.5 hover:bg-[#2D241A] md:px-8 md:py-4 md:text-[1.02rem];
   }
 
   .case-study-image {
-    @apply h-[220px] w-full rounded-xl border border-white/10 object-cover shadow-[0_18px_42px_rgba(0,0,0,0.34)] md:h-[320px];
+    @apply h-[220px] w-full rounded-xl border border-black/10 object-cover shadow-[0_14px_30px_rgba(28,18,8,0.14)] md:h-[320px];
   }
 
   .reveal-on-scroll {

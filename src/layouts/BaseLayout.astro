@@ -28,13 +28,29 @@ const currentPath = Astro.url.pathname;
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@400;600;700;800;900&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,400&family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&display=swap"
       rel="stylesheet"
     />
   </head>
-  <body class="font-body bg-[#070C16] text-[#EEE9E0]">
+  <body class="font-body bg-[#F6F1E8] text-[#1F1A14]">
     <SiteNav currentPath={currentPath} />
     <ScrollReveal />
+
+    <script is:inline>
+      (() => {
+        const nav = document.querySelector("[data-site-nav]");
+        if (!nav) {
+          return;
+        }
+
+        const syncNavState = () => {
+          nav.classList.toggle("is-scrolled", window.scrollY > 10);
+        };
+
+        syncNavState();
+        window.addEventListener("scroll", syncNavState, { passive: true });
+      })();
+    </script>
 
     <main class="site-main">
       <div class="container">
